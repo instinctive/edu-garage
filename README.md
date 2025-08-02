@@ -11,9 +11,9 @@ I've extended it to add a `Garage` that has a certain amount of fuel and a
 number of vehicles, and a function to refuel the vehicles with the available
 fuel.
 
-    ```idris
-    refuelAll : Garage -> Garage
-    ```
+```idris
+refuelAll : Garage -> Garage
+```
 
 ## Haskell
 
