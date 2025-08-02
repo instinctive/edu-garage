@@ -1,0 +1,32 @@
+cabal-version: 3.0
+name: garage
+version: 0.1.0.0
+
+common lib-shared
+  mixins:
+    , base hiding (Prelude)
+    , base-prelude (BasePrelude as Prelude)
+  default-language: GHC2021
+  default-extensions:
+    , BlockArguments
+    , DataKinds
+    , LambdaCase
+    , MultiWayIf
+    , RecordWildCards
+    , ViewPatterns
+  -- ghc-options: -pgmL markdown-unlit
+  build-depends: base, base-prelude
+    -- , array
+    -- , random-shuffle
+    -- , MonadRandom
+    -- , containers
+    -- , extra
+    -- , lens
+    -- , linear
+    -- , mtl
+    -- , split
+    -- , text
+
+library
+  import: lib-shared
+  exposed-modules: Garage
