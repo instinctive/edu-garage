@@ -1,9 +1,16 @@
--- Haskell: https://gist.github.com/instinctive/6c06b1d257b9c8f567fb7fb74f484540
--- Claude: https://claude.ai/chat/7a0eb410-ecea-44c6-b10e-3544a5bcd1c5
-
 module Garage
 
 %default total
+
+-- Is this not in the standard library somewhere??
+mapAccumL : (acc -> a -> (acc,b)) -> acc -> List a -> (acc,List b)
+mapAccumL f acc [] = (acc,[])
+mapAccumL f acc (x::xx) =
+    let (acc',y) = f acc x
+        (acc'',yy) = mapAccumL f acc' xx
+    in (acc'',y::yy)
+
+-- Code ------------------------------------------------------------
 
 Fuel : Type
 Fuel = Nat
@@ -41,23 +48,17 @@ refuel fuel vehicle =
     fillup (Truck tank) = map Truck (refillTank fuel tank)
 
 refuelAnyVehicle : Fuel -> (t ** Vehicle t) -> (Fuel, (t ** Vehicle t))
-refuelAnyVehicle fuel (No ** v) = (fuel, (No ** v))
-refuelAnyVehicle fuel (Yes ** v) = 
-  let (fuel', v') = refuel fuel v in (fuel', (Yes ** v'))
-
-mapAccumL : (acc -> a -> (acc,b)) -> acc -> List a -> (acc,List b)
-mapAccumL f acc [] = (acc,[])
-mapAccumL f acc (x::xx) =
-    let (acc',y) = f acc x
-        (acc'',yy) = mapAccumL f acc' xx
-    in (acc'',y::yy)
+refuelAnyVehicle fuel q@(No ** _) = (fuel, q)
+refuelAnyVehicle fuel (Yes ** v) =
+  let (fuel', v') = refuel fuel v
+  in (fuel', (Yes ** v'))
 
 refuelAll : Garage -> Garage
 refuelAll (MkGarage fuel vehicles) =
   let (fuel', vehicles') = mapAccumL refuelAnyVehicle fuel vehicles
   in MkGarage fuel' vehicles'
 
--- Example
+-- Example ------------------------------------------------------------
 
 bicycle : (No ** Vehicle No)
 bicycle = (No ** Bicycle)

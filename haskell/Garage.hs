@@ -1,7 +1,6 @@
--- idris2: https://gist.github.com/instinctive/19f0113a0f3f748ae7755d0396c385f0
--- claude: https://claude.ai/chat/7a0eb410-ecea-44c6-b10e-3544a5bcd1c5
-
 module Garage where
+
+-- Code ------------------------------------------------------------
 
 type Fuel    = Int
 data Tank    = Tank { capacity :: Fuel, amount :: Fuel }
@@ -27,7 +26,7 @@ refuel fuel vehicle = case vehicle of
       where
         delta = min fuel (capacity - amount)
 
--- example
+-- Example ------------------------------------------------------------
 
 instance Show Tank where
     show Tank{..} = show amount ++ "/" ++ show capacity
