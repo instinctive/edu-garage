@@ -1,8 +1,9 @@
-# Haskell and Idris
+# Haskell and Idris2
 
-Here are Haskell and Idris2 implementations of a `Garage` that holds vehicles,
-only some of which require refueling. The Haskell code enforces this at
-runtime, the Idris2 code enforces it in the types.
+Here are [Haskell](haskell/Garage.hs) and [Idris2](idris2/Garage.idr)
+implementations of a `Garage` that holds vehicles, only some of which require
+refueling. The Haskell code enforces this at runtime, the Idris2 code enforces
+it in the types.
 
 ## Haskell
 
